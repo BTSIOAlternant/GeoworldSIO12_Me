@@ -66,9 +66,22 @@ function getAllCountries()
  * 
  * @return liste d'objets ayant un attribuet nommé continent
  */
-function getContinets()
+function getContinents()
 {
     global $pdo;
     $row = 'SELECT DISTINCT continent FROM country';
     return $pdo->query($row)->fetchAll();
+}
+
+/**
+ * Obtenir les continents
+ * 
+ * @return liste d'objets ayant comme résultat $search
+ */
+function search($search) {
+    global $pdo;
+
+    $sql = "SELECT DISTINCT Code, Name, Continent, Region, LocalName, Population FROM country WHERE Code LIKE '%$search%' OR Name LIKE '%$search%' OR Continent LIKE '%$search%' OR Region LIKE '%$search%' OR LocalName LIKE '%$search%'";
+
+    return $pdo->query($sql)->fetchAll();
 }

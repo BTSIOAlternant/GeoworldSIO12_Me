@@ -24,8 +24,11 @@ $desPays = getCountriesByContinent($continent);
 ?>
 <main role="main" class="flex-shrink-0">
   <div class="container">
+  <?php if(isset($_GET['continent'])):
+  $continent = $_GET['continent']; ?>
     <h1>Les pays en <?php echo $continent ?></h1>
     <div>
+    
      <table class="table">
          <tr>
            <th>Nom</th>
@@ -34,11 +37,18 @@ $desPays = getCountriesByContinent($continent);
          <?php foreach ($desPays as $pays): ?>
         <tr>
             <td> <?php echo $pays->Name ?></td>
-            <td> <?php echo $pays->Population ?></td>
+            <td> <?php  echo $pays->Population ?></td>
         </tr>
       <?php endforeach; ?>
      </table>
-    </div>
+    </div> 
+    <?php else: ?>
+      <div class="map" id="map">
+        <div class="map__image">
+            <?php include_once 'map.php'; ?>
+        </div>
+      </div>
+      <?php endif; ?>
   </div>
 </main>
 <?php
