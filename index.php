@@ -32,11 +32,13 @@ $desPays = getCountriesByContinent($continent);
      <table class="table">
          <tr>
            <th>Nom</th>
+           <th>Region</th>
            <th>Population</th>
          </tr>
          <?php foreach ($desPays as $pays): ?>
         <tr>
             <td> <?php echo $pays->Name ?></td>
+            <td> <?php  echo $pays->Region ?></td>
             <td> <?php  echo $pays->Population ?></td>
         </tr>
       <?php endforeach; ?>

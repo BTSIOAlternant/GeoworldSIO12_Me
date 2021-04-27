@@ -81,7 +81,83 @@ function getContinents()
 function search($search) {
     global $pdo;
 
-    $sql = "SELECT DISTINCT Code, Name, Continent, Region, LocalName, Population FROM country WHERE Code LIKE '%$search%' OR Name LIKE '%$search%' OR Continent LIKE '%$search%' OR Region LIKE '%$search%' OR LocalName LIKE '%$search%'";
+    $sql = "SELECT DISTINCT * FROM country, city WHERE country.id = city.id AND country.Code LIKE '%$search%' OR country.Name LIKE '%$search%' OR country.Continent LIKE '%$search%' OR country.Region LIKE '%$search%' OR country.LocalName LIKE '%$search%' OR idCountry LIKE '%$search%' OR city.Name LIKE '%$search%' OR city.District LIKE '%$search%' OR city.Population LIKE '%$search%' LIMIT 25 ;";
+    return $pdo->query($sql)->fetchAll();
+}
 
+/**
+ * Obtenir la liste de tous les utilisateurs
+ * 
+ * @return liste d'objets ayant comme résultat tous les users
+ */
+function getAllUsers()
+{
+    global $pdo;
+
+    $raw = 'SELECT * FROM login';
+    return $pdo->query($raw)->fetchAll();
+}
+
+/**
+ * Ajouté un utilisateur 
+ * 
+ * @return nothing
+ */
+function Adduser()
+{
+
+    $user = $_POST["user"];
+    $pass = $_POST["password"];
+    $type = $_POST['Type'];
+
+    global $pdo;
+
+    $query = "INSERT INTO login VALUES(NULL, '$user', '$pass', '$type')";
+    $prep = $pdo->prepare($query);
+    $prep->execute();
+}
+
+/**
+ * Supprimer un utilisateur
+ * 
+ * @send requete qui supprime l'user en question et @return nothing
+ */
+function deleteUser($id)
+{
+    global $pdo;
+    $query='DELETE FROM login WHERE idlog = :id;';
+    $prep = $pdo->prepare($query);
+    $prep->bindValue(':id', $id);
+    $prep->execute();
+}
+
+
+/**
+ * Modifier un utilisateur
+ * 
+ * Récupère les paramètres et les mets a jours si nécessaire.
+ */
+function updateUser($info)
+{
+    global $pdo;
+    $user = $info['user'];
+    $pass = $info['pass'];
+    $Type = $info['Permission'];
+    $idlog = $info['idlog'];
+    $query = "UPDATE login SET user='$user', password='$pass', Type='$Type' WHERE idlog='$idlog';";
+    $prep = $pdo->prepare($query);
+    $prep->execute();
+}
+
+/**
+ * Obtenir les informations d'un user via sont id
+ * 
+ * @return liste de paramètres d'un objet .
+ */
+function getInfoUser($id)
+{
+    global $pdo;
+    $iduser = $id;
+    $sql ="SELECT * FROM login WHERE idlog = $id;";
     return $pdo->query($sql)->fetchAll();
 }
