@@ -81,8 +81,15 @@ function getContinents()
 function search($search) {
     global $pdo;
 
-    $sql = "SELECT DISTINCT * FROM country, city WHERE country.id = city.id AND country.Code LIKE '%$search%' OR country.Name LIKE '%$search%' OR country.Continent LIKE '%$search%' OR country.Region LIKE '%$search%' OR country.LocalName LIKE '%$search%' OR idCountry LIKE '%$search%' OR city.Name LIKE '%$search%' OR city.District LIKE '%$search%' OR city.Population LIKE '%$search%' LIMIT 25 ;";
+    $sql = "SELECT DISTINCT Code, Name, Continent, Region, LocalName, Population FROM country WHERE Code LIKE '%$search%' OR Name LIKE '%$search%' OR Continent LIKE '%$search%' OR Region LIKE '%$search%' OR LocalName LIKE '%$search%'";
     return $pdo->query($sql)->fetchAll();
+}
+
+function getInfoCountries($pays)
+{
+    global $pdo;
+    $query = "SELECT * FROM country WHERE Name = '$pays';";
+    return $pdo->query($query)->fetchAll();
 }
 
 /**

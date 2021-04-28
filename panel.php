@@ -66,7 +66,7 @@ $Listuser = getAllUsers();
 	
         <td><?php echo $User->idlog ?></td> 
         <td><?php echo $User->user ?></td> 
-        <td><?php echo $User->password ?></td>
+        <td><input type="password" value=" <?php echo $User->password ?> " /> </td>
         <td><?php echo $User->Type ?></td>
         <td><a href="edit-user.php?edit=<?php echo $User->idlog; ?>">Modifier</a></td> 
         <td><a href="./panel.php?delete=<?php echo $User->idlog ?>" onClick="return(confirm('Etes-vous sur de vouloir supprimer <?php echo $User->user ?> ?'));">Supprimer</a></td> 

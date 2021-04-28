@@ -36,7 +36,7 @@ foreach ($user as $rez):
 <form method="post" action="panel.php">
      	ID Utilisateur : <input readonly="readonly" type="text" id="idlog" name="idlog" value="<?php echo $rez->idlog?>"><br>
        User :   <input type="text"  name="user"    value="<?php echo $rez->user?>"><br>
-      MDP :   <input type="text"  name="pass"    value="<?php echo $rez->password?>"><br>
+      MDP :   <input type="password"  name="pass"    value="<?php echo $rez->password?>"><br>
 		Permission :  <input type="radio" name="Permission"  value="Elève" <?php if($rez->Type=='Elève'){echo'checked';}?>>Elève <br>
 		        <input type="radio" name="Permission"   value="Enseignant" <?php if($rez->Type=='Enseignant'){echo'checked';}?>> Enseignant<br>   
             <?php if($_SESSION['Type'] == "Administrateur"): ?>
